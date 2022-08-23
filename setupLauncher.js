@@ -1,9 +1,13 @@
 let launchButton = document.getElementById('launcher');
 launchButton.addEventListener('click', () => {
-  console.log('Launching simulator');
-  var sw = window.open('./index.html', 'simulatorTab', 'width=900,height=600,top=0,left=0,location=no,menubar=no,titlebar=no');
-  setTimeout(() => {
-    console.log('simulatorWindow', sw);
-    window.simulatorWindow = sw;
-  }, 500);
+
+console.log('Setting up Simulator...');
+const simFrameDiv = $('#simulator_frame').html('<iframe src="./build/index.html" width="100%" height="500" />');
+setTimeout(() => {
+    const simFrame = simFrameDiv.find('iframe');
+    if (simFrame !== undefined) {
+        window.simulatorWindow = simFrame[0].contentWindow;
+        console.log('Acquired simulator window!');
+    }
+}, 1000);
 });
